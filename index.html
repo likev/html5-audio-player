@@ -4,19 +4,14 @@
     <meta charset="UTF-8">
     <title>Audio player HTML5</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    
-    
-        <link rel="stylesheet" href="css/style.css">
 
-    
-    
-    
+    <link rel="stylesheet" href="css/style.css">
+
   </head>
 
   <body>
 
-    <!-- Audio player -->
+    <!-- Audio player div begin-->
 <div class="ap" id="ap">
   <div class="ap-inner">
     <div class="ap-panel">
@@ -94,11 +89,26 @@
     </div>
   </div>
 </div>
-    
-        <script src="js/index.js"></script>
+    <!-- Audio player div end-->
 
-    
-    
-    
+    <!-- Audio player js begin-->
+    <script src="js/AudioPlayer.js"></script>
+
+    <script>
+        // test image for web notifications
+        var iconImage = null;
+
+        AP.init({
+            volume   : 0.7,
+            autoPlay : true,
+            notification: false,
+            playList: [
+                {'icon': iconImage, 'title': 'Try Everything', 'file': 'mp3/try-everything.mp3'},
+                {'icon': iconImage, 'title': 'Let It Go', 'file': 'http://blog.tianqi.at/html5-audio-player/mp3/let-it-go.mp3'}
+          ]
+        });
+    </script>
+    <!-- Audio player js end-->
+
   </body>
 </html>
