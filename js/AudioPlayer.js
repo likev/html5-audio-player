@@ -32,7 +32,7 @@ var AudioPlayer = (function() {
   plLi,
   // settings
   settings = {
-    volume   : 0.1,
+    volume   : 0.5,
     autoPlay : false,
     notification: true,
     playList : []
@@ -560,17 +560,3 @@ var AudioPlayer = (function() {
 window.AP = AudioPlayer;
 
 })(window);
-
-
-// test image for web notifications
-var iconImage = 'http://funkyimg.com/i/21pX5.png';
-
-AP.init({
-  playList: [
-    {'icon': iconImage, 'title': 'Hitman', 'file': 'http://incompetech.com/music/royalty-free/mp3-royaltyfree/Hitman.mp3'},
-    {'icon': iconImage, 'title': 'Forever Believe', 'file': 'https://a.clyp.it/zbh0qeyo.mp3'},
-    {'icon': iconImage, 'title': 'Drifting', 'file': 'https://a.clyp.it/bthbgqcs.mp3'},
-    {'icon': iconImage, 'title': 'Clap Along (Lorem ipsum dolor sit amet, consectetur adipisicing.)', 'file': 'https://a.clyp.it/lygki3hx.mp3'},
-    {'icon': iconImage, 'title': 'Pop Tune', 'file': 'https://a.clyp.it/enddsv44.mp3'}
-  ]
-});
