@@ -7,7 +7,7 @@ forked from @k-ivan at http://codepen.io/k-ivan/pen/pJMLmJ
 
 demo: [html5-audio-player](http://blog.tianqi.at/html5-audio-player/ 'html5-audio-player demo')
 
-<iframe src='http://blog.tianqi.at/html5-audio-player/' height='260px' width='100%'>
+<!-- <iframe src='http://blog.tianqi.at/html5-audio-player/' height='260px' width='100%'> -->
 
 ## 2. how to use
 
