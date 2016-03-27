@@ -5,14 +5,14 @@
     <title>Audio player HTML5</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="http://fonts.useso.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/AudioPlayer.css">
     <style>
 
     #player{
         position: relative;
-        width: 400px;
-        height: 500px;
+        max-width: 400px;
+        min-height: 500px;
         border: solid 1px gray;
     }
     </style>
@@ -32,7 +32,7 @@
         AP.init({
             container:'#player',//a string containing one CSS selector
             volume   : 0.7,
-            autoPlay : false,
+            autoPlay : true,
             notification: false,
             playList: [
                 {'icon': iconImage, 'title': 'Try Everything', 'file': 'mp3/try-everything.mp3'},
