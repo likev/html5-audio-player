@@ -4,9 +4,63 @@
 
 var AudioPlayer = (function() {
 
+    var aphtml =
+    '  <div class="ap-inner">'+
+    '    <div class="ap-panel">'+
+    '      <div class="ap-item ap--playback">'+
+    '        <button class="ap-controls ap-prev-btn">'+
+    '          <i class="material-icons md-dark">skip_previous</i>'+
+    '        </button>'+
+    '        <button class="ap-controls ap-toggle-btn">'+
+    '            <i class="material-icons md-dark ap--play">play_arrow</i>'+
+    '            <i class="material-icons md-dark ap--pause">pause</i>'+
+    '        </button>'+
+    '        <button class="ap-controls ap-next-btn">'+
+    '          <i class="material-icons md-dark">skip_next</i>'+
+    '        </button>'+
+    '      </div>'+
+    '      <div class="ap-item ap--track">'+
+    '        <div class="ap-info">'+
+    '          <div class="ap-title">Unknown</div>'+
+    '          <div class="ap-time">'+
+    '            <span class="ap-time--current">--</span>'+
+    '            <span> / </span>'+
+    '            <span class="ap-time--duration">--</span>'+
+    '          </div>'+
+    ''+
+    '          <div class="ap-progress-container">'+
+    '            <div class="ap-progress">'+
+    '              <div class="ap-bar"></div>'+
+    '              <div class="ap-preload-bar"></div>'+
+    '            </div>'+
+    '          </div>'+
+    ''+
+    '        </div>'+
+    '      </div>'+
+    '      <div class="ap-item ap--settings">'+
+    '        <div class="ap-controls ap-volume-container">'+
+    '          <button class="ap-controls ap-volume-btn">'+
+    '              <i class="material-icons md-dark ap--volume-on">volume_up</i>'+
+    '              <i class="material-icons md-dark ap--volume-off">volume_mute</i>'+
+    '          </button>'+
+    '          <div class="ap-volume">'+
+    '            <div class="ap-volume-progress"><div class="ap-volume-bar"></div></div>'+
+    '          </div>'+
+    '        </div>'+
+    '        <button class="ap-controls ap-repeat-btn">'+
+    '          <i class="material-icons md-dark">repeat</i>'+
+    '        </button>'+
+    '        <button class="ap-controls ap-playlist-btn">'+
+    '          <i class="material-icons md-dark">queue_music</i>'+
+    '        </button>'+
+    '      </div>'+
+    '    </div>'+
+    '  </div>';
+
+
   // Player vars
   var
-  player = document.getElementById('ap'),
+  player,
   playBtn,
   prevBtn,
   nextBtn,
@@ -32,9 +86,10 @@ var AudioPlayer = (function() {
   plLi,
   // settings
   settings = {
+    container: 'body',
     volume   : 0.5,
     autoPlay : false,
-    notification: true,
+    notification: false,
     playList : []
   };
 
@@ -44,11 +99,19 @@ var AudioPlayer = (function() {
       return false;
     }
 
+    player = create('div', {
+      'className': 'ap',
+      'id': 'ap',
+      'innerHTML': aphtml
+    });
+
     if(apActive || player === null) {
       return;
     }
 
     settings = extend(settings, options);
+
+    document.querySelector(settings.container).insertBefore(player, null);
 
     // get player elements
     playBtn        = player.querySelector('.ap-toggle-btn');
@@ -125,10 +188,7 @@ var AudioPlayer = (function() {
         '<li data-track="{count}">'+
           '<div class="pl-number">'+
             '<div class="pl-count">'+
-              '<svg fill="#000000" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">'+
-                  '<path d="M0 0h24v24H0z" fill="none"/>'+
-                  '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>'+
-              '</svg>'+
+              '<i class="material-icons">audiotrack</i>'+
             '</div>'+
             '<div class="pl-playing">'+
               '<div class="eq">'+
@@ -140,10 +200,7 @@ var AudioPlayer = (function() {
           '</div>'+
           '<div class="pl-title">{title}</div>'+
           '<button class="pl-remove">'+
-              '<svg fill="#000000" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">'+
-                  '<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>'+
-                  '<path d="M0 0h24v24H0z" fill="none"/>'+
-              '</svg>'+
+              '<i class="material-icons">delete</i>'+
           '</button>'+
         '</li>';
 

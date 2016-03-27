@@ -13,12 +13,14 @@ button {
   outline: 0;
   background: transparent;
 }
+
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.75); }
 /*------------------------
     Audio Player - AP
 ------------------------*/
 /* Player and control panel */
 .ap {
-  position: fixed;
+  position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
@@ -300,7 +302,7 @@ button {
   PlayList
 --------------------*/
 .pl-container {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 50px;
