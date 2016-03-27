@@ -29,7 +29,7 @@ code example:
 
     #player{
         position: relative;
-        width: 700px;
+        max-width: 700px;
         height: 500px;
         border: solid 1px gray;
     }
