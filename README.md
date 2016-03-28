@@ -6,7 +6,7 @@ html5 audio player(with playlist) using flexbox, svg, css animations and  js api
 forked from @k-ivan at http://codepen.io/k-ivan/pen/pJMLmJ
 
 demo: [html5-audio-player](http://blog.tianqi.at/html5-audio-player/ 'html5-audio-player demo')
-
+![html5-audio-player-screenshot](html5-audio-player.png)
 <!-- <iframe src='http://blog.tianqi.at/html5-audio-player/' height='260px' width='100%'> -->
 
 ## 2. how to use
