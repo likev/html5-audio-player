@@ -5,10 +5,10 @@ html5 audio player(with playlist) using flexbox, svg, css animations and  js api
 
 forked from @k-ivan at http://codepen.io/k-ivan/pen/pJMLmJ
 
-demo: [html5-audio-player](http://blog.tianqi.at/html5-audio-player/ 'html5-audio-player demo')
+demo: [html5-audio-player](https://blog.tianqitu.net/html5-audio-player/ 'html5-audio-player demo')
 
 ![html5-audio-player-screenshot](html5-audio-player.png)
-<!-- <iframe src='http://blog.tianqi.at/html5-audio-player/' height='260px' width='100%'> -->
+<!-- <iframe src='https://blog.tianqitu.net/html5-audio-player/' height='260px' width='100%'> -->
 
 ## 2. how to use
 1. insert Google Material Icons and AudioPlayer.css before `</head>`
@@ -55,7 +55,7 @@ code example:
             notification: false,
             playList: [
                 {'icon': iconImage, 'title': 'Try Everything', 'file': 'mp3/try-everything.mp3'},
-                {'icon': iconImage, 'title': 'Let It Go', 'file': 'http://blog.tianqi.at/html5-audio-player/mp3/let-it-go.mp3'}
+                {'icon': iconImage, 'title': 'Let It Go', 'file': 'https://blog.tianqitu.net/html5-audio-player/mp3/let-it-go.mp3'}
           ]
         });
     </script>
