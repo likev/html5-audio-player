@@ -105,7 +105,7 @@ var AudioPlayer = (function() {
       'innerHTML': aphtml
     });
 
-    if(apActive || player === null) {
+    if(player === null) {
       return;
     }
 
