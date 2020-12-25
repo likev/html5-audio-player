@@ -29,16 +29,17 @@
         // test image for web notifications
         var iconImage = null;
 
-        AP.init({
-            container:'#player',//a string containing one CSS selector
-            volume   : 0.7,
-            autoPlay : true,
-            notification: false,
-            playList: [
-                {'icon': iconImage, 'title': 'Try Everything', 'file': 'mp3/try-everything.mp3'},
-                {'icon': iconImage, 'title': 'Let It Go', 'file': 'mp3/let-it-go.mp3'}
-          ]
-        });
+        fetch("playlist.json")
+          .then(response => response.json())
+          .then(playList => {
+            AP.init({
+                container:'#player',//a string containing one CSS selector
+                volume   : 0.7,
+                autoPlay : true,
+                notification: false,
+                playList: playList
+            });
+          })
     </script>
     <!-- Audio player js end-->
 
