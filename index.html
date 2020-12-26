@@ -30,7 +30,13 @@
         var iconImage = null;
 
         fetch("playlist.json")
-          .then(response => response.json())
+          .then(response => {
+            if (response.ok) {
+              return response.json()
+            } else {
+              throw Error('Loading playlist: ' + response.statusText)
+            }
+          })
           .then(playList => {
             AP.init({
                 container:'#player',//a string containing one CSS selector
@@ -40,6 +46,7 @@
                 playList: playList
             });
           })
+          .catch(error => alert(error))
     </script>
     <!-- Audio player js end-->
 
