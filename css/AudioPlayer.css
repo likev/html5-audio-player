@@ -453,3 +453,19 @@ button {
   -webkit-animation: eq .8s ease-in-out infinite .4s;
           animation: eq .8s ease-in-out infinite .4s;
 }
+
+.ap-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 50px;
+  left: 0;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+}
+.ap-image img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
