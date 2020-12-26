@@ -84,6 +84,7 @@ var AudioPlayer = (function() {
   repeating = false,
   // either null or an array of all indices which were not played yet
   shuffling = null,
+  played = [],
   seeking = false,
   rightClick = false,
   apActive = false,
@@ -313,6 +314,8 @@ var AudioPlayer = (function() {
       return;
     }
 
+    played.push(index)
+
     audio.src = playList[index].file;
     audio.preload = 'auto';
     document.title = trackTitle.innerHTML = playList[index].title;
@@ -327,7 +330,12 @@ var AudioPlayer = (function() {
   }
 
   function prev() {
-    index = index - 1;
+    if (played.length > 1) {
+      index = played.splice(-2)[0];
+    } else {
+      index = 0;
+    }
+
     play();
   }
 
