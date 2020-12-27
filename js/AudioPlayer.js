@@ -64,6 +64,7 @@ var AudioPlayer = (function() {
   // Player vars
   var
   player,
+  imageDiv,
   playBtn,
   prevBtn,
   nextBtn,
@@ -153,6 +154,10 @@ var AudioPlayer = (function() {
     prevBtn.addEventListener('click', prev, false);
     nextBtn.addEventListener('click', next, false);
 
+    imageDiv = create('div', {
+      'className': 'ap-image'
+    })
+    player.parentNode.appendChild(imageDiv)
 
     apActive = true;
 
@@ -180,10 +185,15 @@ var AudioPlayer = (function() {
     audio.addEventListener('error', error, false);
     audio.addEventListener('timeupdate', update, false);
     audio.addEventListener('ended', doEnd, false);
+    audio.addEventListener('play', () => {
+      playBtn.classList.add('playing');
+    }, false)
+    audio.addEventListener('pause', () => {
+      playBtn.classList.remove('playing');
+    }, false)
 
     if(settings.autoPlay) {
       audio.play();
-      playBtn.classList.add('playing');
       plLi[index].classList.add('pl-current');
     }
   }
@@ -295,6 +305,14 @@ var AudioPlayer = (function() {
         plLi[i].classList.remove('pl-current');
       }
       plLi[current].classList.add('pl-current');
+
+      imageDiv.innerHTML = ''
+      if (playList[current].icon) {
+	let image = create('img', {
+	  src: playList[current].icon
+	})
+	imageDiv.appendChild(image)
+      }
     }
 
 
@@ -325,7 +343,6 @@ var AudioPlayer = (function() {
       body: 'Now playing',
       tag: 'music-player'
     });
-    playBtn.classList.add('playing');
     plActive();
   }
 
@@ -347,7 +364,7 @@ var AudioPlayer = (function() {
 	} else {
 	  audio.pause();
 	  plActive();
-	  playBtn.classList.remove('playing');
+	  
 	  return;
 	}
       }
@@ -380,7 +397,6 @@ var AudioPlayer = (function() {
     durTime.innerHTML = '--';
     progressBar.style.width = 0;
     preloadBar.style.width = 0;
-    playBtn.classList.remove('playing');
     pl.innerHTML = '<div class="pl-empty">PlayList is empty</div>';
   }
 
@@ -476,7 +492,9 @@ var AudioPlayer = (function() {
   }
 
   function doEnd() {
+
     next(false);
+
   }
 
   function moveBar(evt, el, dir) {
