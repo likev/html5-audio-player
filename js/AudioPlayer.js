@@ -50,6 +50,9 @@ var AudioPlayer = (function() {
     '        <button class="ap-controls ap-repeat-btn">'+
     '          <i class="material-icons md-dark">repeat</i>'+
     '        </button>'+
+    '        <button class="ap-controls ap-shuffle-btn">'+
+    '          <i class="material-icons md-dark">shuffle</i>'+
+    '        </button>'+
     '        <button class="ap-controls ap-playlist-btn">'+
     '          <i class="material-icons md-dark">queue_music</i>'+
     '        </button>'+
@@ -67,6 +70,7 @@ var AudioPlayer = (function() {
   nextBtn,
   plBtn,
   repeatBtn,
+  shuffleBtn,
   volumeBtn,
   progressBar,
   preloadBar,
@@ -79,6 +83,9 @@ var AudioPlayer = (function() {
   volumeBar,
   volumeLength,
   repeating = false,
+  // either null or an array of all indices which were not played yet
+  shuffling = null,
+  played = [],
   seeking = false,
   rightClick = false,
   apActive = false,
@@ -119,6 +126,7 @@ var AudioPlayer = (function() {
     prevBtn        = player.querySelector('.ap-prev-btn');
     nextBtn        = player.querySelector('.ap-next-btn');
     repeatBtn      = player.querySelector('.ap-repeat-btn');
+    shuffleBtn     = player.querySelector('.ap-shuffle-btn');
     volumeBtn      = player.querySelector('.ap-volume-btn');
     plBtn          = player.querySelector('.ap-playlist-btn');
     curTime        = player.querySelector('.ap-time--current');
@@ -133,6 +141,7 @@ var AudioPlayer = (function() {
     playBtn.addEventListener('click', playToggle, false);
     volumeBtn.addEventListener('click', volumeToggle, false);
     repeatBtn.addEventListener('click', repeatToggle, false);
+    shuffleBtn.addEventListener('click', shuffleToggle, false);
 
     progressBar.parentNode.parentNode.addEventListener('mousedown', handlerBar, false);
     progressBar.parentNode.parentNode.addEventListener('mousemove', seek, false);
@@ -323,6 +332,8 @@ var AudioPlayer = (function() {
       return;
     }
 
+    played.push(index)
+
     audio.src = playList[index].file;
     audio.preload = 'auto';
     document.title = trackTitle.innerHTML = playList[index].title;
@@ -336,12 +347,41 @@ var AudioPlayer = (function() {
   }
 
   function prev() {
-    index = index - 1;
+    if (played.length > 1) {
+      index = played.splice(-2)[0];
+    } else {
+      index = 0;
+    }
+
     play();
   }
 
-  function next() {
-    index = index + 1;
+  function next(interactive) {
+    if (shuffling) {
+      if (shuffling.length === 0) {
+	if (repeating || interactive) {
+	  shuffling = [...Array(playList.length).keys()]
+	} else {
+	  audio.pause();
+	  plActive();
+	  
+	  return;
+	}
+      }
+
+      let i = Math.floor(Math.random() * shuffling.length);
+      index = shuffling.splice(i, 1)[0];
+    } else {
+      if (index === playList.length - 1 && (!repeating && !interactive)) {
+	audio.pause();
+	plActive();
+	playBtn.classList.remove('playing');
+	return;
+      }
+
+      index = (index === playList.length - 1) ? 0 : index + 1;
+    }
+
     play();
   }
 
@@ -410,6 +450,18 @@ var AudioPlayer = (function() {
     }
   }
 
+  function shuffleToggle() {
+    var shuffle = this.classList;
+    if(shuffle.contains('ap-active')) {
+      shuffling = null;
+      shuffle.remove('ap-active');
+    }
+    else {
+      shuffling = [...Array(playList.length).keys()]
+      shuffle.add('ap-active');
+    }
+  }
+
   function plToggle() {
     this.classList.toggle('ap-active');
     pl.classList.toggle('hide');
@@ -440,21 +492,9 @@ var AudioPlayer = (function() {
   }
 
   function doEnd() {
-    if(index === playList.length - 1) {
-      if(!repeating) {
-        audio.pause();
-        plActive();
-        return;
-      }
-      else {
-        index = 0;
-        play();
-      }
-    }
-    else {
-      index = (index === playList.length - 1) ? 0 : index + 1;
-      play();
-    }
+
+    next(false);
+
   }
 
   function moveBar(evt, el, dir) {
