@@ -61,6 +61,7 @@ var AudioPlayer = (function() {
   // Player vars
   var
   player,
+  imageDiv,
   playBtn,
   prevBtn,
   nextBtn,
@@ -144,6 +145,10 @@ var AudioPlayer = (function() {
     prevBtn.addEventListener('click', prev, false);
     nextBtn.addEventListener('click', next, false);
 
+    imageDiv = create('div', {
+      'className': 'ap-image'
+    })
+    player.parentNode.appendChild(imageDiv)
 
     apActive = true;
 
@@ -291,6 +296,14 @@ var AudioPlayer = (function() {
         plLi[i].classList.remove('pl-current');
       }
       plLi[current].classList.add('pl-current');
+
+      imageDiv.innerHTML = ''
+      if (playList[current].icon) {
+	let image = create('img', {
+	  src: playList[current].icon
+	})
+	imageDiv.appendChild(image)
+      }
     }
 
 
