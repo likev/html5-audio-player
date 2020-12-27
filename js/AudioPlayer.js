@@ -171,10 +171,15 @@ var AudioPlayer = (function() {
     audio.addEventListener('error', error, false);
     audio.addEventListener('timeupdate', update, false);
     audio.addEventListener('ended', doEnd, false);
+    audio.addEventListener('play', () => {
+      playBtn.classList.add('playing');
+    }, false)
+    audio.addEventListener('pause', () => {
+      playBtn.classList.remove('playing');
+    }, false)
 
     if(settings.autoPlay) {
       audio.play();
-      playBtn.classList.add('playing');
       plLi[index].classList.add('pl-current');
     }
   }
@@ -314,7 +319,6 @@ var AudioPlayer = (function() {
       body: 'Now playing',
       tag: 'music-player'
     });
-    playBtn.classList.add('playing');
     plActive();
   }
 
@@ -340,7 +344,6 @@ var AudioPlayer = (function() {
     durTime.innerHTML = '--';
     progressBar.style.width = 0;
     preloadBar.style.width = 0;
-    playBtn.classList.remove('playing');
     pl.innerHTML = '<div class="pl-empty">PlayList is empty</div>';
   }
 
@@ -428,7 +431,6 @@ var AudioPlayer = (function() {
       if(!repeating) {
         audio.pause();
         plActive();
-        playBtn.classList.remove('playing');
         return;
       }
       else {
